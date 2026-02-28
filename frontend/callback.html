@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ConflictWatch — Autenticando...</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>window.CW_CONFIG = { supabaseUrl: 'https://SEU_PROJETO.supabase.co', supabaseAnon: 'SUA_ANON_KEY', appUrl: 'https://conflictwatch.vercel.app' };</script>
+<style>
+  body { background: #030a06; color: #00ff88; font-family: monospace; display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column; gap: 16px; }
+  .spinner { width: 32px; height: 32px; border: 3px solid #0f3020; border-top-color: #00ff88; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="spinner"></div>
+<div>Autenticando...</div>
+<script>
+(async () => {
+  const sb = window.supabase.createClient(CW_CONFIG.supabaseUrl, CW_CONFIG.supabaseAnon);
+  // Processar o hash da URL após OAuth redirect
+  const { data, error } = await sb.auth.getSession();
+  if (data?.session) {
+    window.location.href = CW_CONFIG.appUrl + '/index.html';
+  } else {
+    window.location.href = CW_CONFIG.appUrl + '/login.html?error=oauth_failed';
+  }
+})();
+</script>
+</body>
+</html>
