@@ -5,7 +5,7 @@ const express    = require('express');
 const helmet     = require('helmet');
 const cors       = require('cors');
 const pinoHttp   = require('pino-http');
-const logger     = require('./utils/logger');
+const logger = require('./logger')
 const { globalRateLimit } = require('./middleware/rateLimit');
 
 // ── Routes ────────────────────────────────────────────────────
